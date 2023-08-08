@@ -1,0 +1,67 @@
+/*
+ Name:		PressOnLight.ino
+ Created:	3/21/2023 5:09:59 PM
+ Author:	amird
+ המנורה מהבהבת אקראית ויש ללחוץ על הכפתור בזמן שהיא דולקת
+ הצלחנו - מקבלים נקודה
+ לא הצלחנו - מפסידים נקודה
+*/
+
+#define DEBOUNCE 50
+
+#define pinLed 9
+#define pinBtn 2
+
+unsigned long LastOnTime;
+int OnPrd = 1000;
+bool isLedOn;
+
+int lastBtnVal;
+unsigned long lastBtnPressTime;
+
+int score = 10;
+void setup() {
+	pinMode(pinLed, OUTPUT);
+	pinMode(pinBtn, INPUT_PULLUP);
+
+	Serial.begin(9600);
+	randomSeed(analogRead(A1));
+	LedOn();
+	LastOnTime = millis();
+	lastBtnVal = digitalRead(pinBtn);
+	lastBtnPressTime = millis();
+}
+void loop() {
+	int btnVal = digitalRead(pinBtn);
+	if ((btnVal==LOW)&&(lastBtnVal==HIGH)&&(millis()- lastBtnPressTime>DEBOUNCE)) {
+		lastBtnPressTime = millis();
+		score += (isLedOn) ? 1 : -1;
+	}
+	lastBtnVal = btnVal;
+
+	if (millis() - LastOnTime >= OnPrd) {
+		toggleLed();
+		OnPrd = chooseNewPrd();
+	}
+}
+int chooseNewPrd() {
+	int num = random(500, 1500);
+	Serial.println(num);
+	return num;
+}
+void toggleLed() {
+	LastOnTime = millis();
+	if (isLedOn) {
+		LedOff();
+	} else {
+		LedOn();
+	}
+}
+void LedOn() {
+	digitalWrite(pinLed, HIGH);
+	isLedOn = true;
+}
+void LedOff() {
+	isLedOn = false;
+	digitalWrite(pinLed, LOW);
+}
