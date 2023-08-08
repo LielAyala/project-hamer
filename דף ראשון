@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hammer Time!</title>
+    <link rel="stylesheet"  href="style.css">
+  </head>
+  <header><h1>Hammer Time!</h1>
+    <img src="https://i.postimg.cc/25pNNTGy/Logo-PNG.png" alt="logo" class="logo"></header>
+  <body>
+    <audio src="AlienSong.mp3">
+  </audio>
+    <img src="https://i.postimg.cc/V66rQYDz/background.png" alt="Mole" class="illustration">
+    
+  </body>
+  <footer>
+    2023 © Made by Anastacia, Ayala, Wiham and Deena
+  </footer>
+</html>
