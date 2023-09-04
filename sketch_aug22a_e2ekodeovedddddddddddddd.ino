@@ -26,6 +26,10 @@ unsigned long lastBtnPressTimePlayer1_2;
 unsigned long lastBtnPressTimePlayer2_1;
 unsigned long lastBtnPressTimePlayer2_2;
 
+
+unsigned long startTime = 0;  // משתנה לאחזור הזמן הנוכחי
+unsigned long elapsedTime = 0;  // משתנה לאחזור זמן שחלף
+
 int scorePlayer1 = -1;
 int scorePlayer2 = 0;
 
@@ -39,15 +43,14 @@ void setup() {
   pinMode(pinBtnPlayer2_1, INPUT_PULLUP);
   pinMode(pinBtnPlayer2_2, INPUT_PULLUP);
 
-  //Serial.begin(9600);
+  Serial.begin(9600);
   Keyboard.begin();
   randomSeed(analogRead(A1));
   // LedOff();  // Turn off all LEDs initially
   LastOnTime = millis();
 
   LedOn();
-  LastOnTime = millis();
-
+  //LastOnTime = millis();
   lastBtnValPlayer1_1 = digitalRead(pinBtnPlayer1_1);
   lastBtnPressTimePlayer1_1 = millis();
   lastBtnValPlayer1_2 = digitalRead(pinBtnPlayer1_2);
@@ -56,6 +59,8 @@ void setup() {
   lastBtnPressTimePlayer2_1 = millis();
   lastBtnValPlayer2_2 = digitalRead(pinBtnPlayer2_2);
   lastBtnPressTimePlayer2_2 = millis();
+
+  //startTime = millis();
 }
 
 void loop() {
@@ -63,29 +68,44 @@ void loop() {
   int btnValPlayer1_2 = digitalRead(pinBtnPlayer1_2);
   int btnValPlayer2_1 = digitalRead(pinBtnPlayer2_1);
   int btnValPlayer2_2 = digitalRead(pinBtnPlayer2_2);
-
+ int start ;
   
 
   if (!gameStarted) {
     if ( btnValPlayer2_2 == LOW) {
       gameStarted = true;
+      startTime = millis();
+      
+
     }
   }
+   elapsedTime = millis() - startTime;
+  if (elapsedTime >= 60000 ){
+    LedOff();
+   // Serial.println("עברה דקה!");
+    if( btnValPlayer2_2 == LOW){
+      gameStarted = true;
+      startTime = millis();
+    }
+  }
+  else{
+    
+    
+   if (gameStarted) {
 
-  if (gameStarted) {
-    if ((btnValPlayer1_1 == LOW) && (lastBtnValPlayer1_1 == HIGH) && (millis() - lastBtnPressTimePlayer1_1 > DEBOUNCE)) {
+  if ((btnValPlayer1_1 == LOW) && (lastBtnValPlayer1_1 == HIGH) && (millis() - lastBtnPressTimePlayer1_1 > DEBOUNCE)) {
     lastBtnPressTimePlayer1_1 = millis();
     scorePlayer1 += (isLedOn) ? 1 : -1;
-    if(isLedOn){
-     Keyboard.write('C');
-     //Serial.print('C');
+       if(isLedOn){
+         Keyboard.write('C');
+         //Serial.print('C');
 
-    }
-     else {
+      }
+      else {
       Keyboard.write('D');
       //Serial.print('D');
+      }
     }
-  }
   if ((btnValPlayer1_2 == LOW) && (lastBtnValPlayer1_2 == HIGH) && (millis() - lastBtnPressTimePlayer1_2 > DEBOUNCE)) {
     lastBtnPressTimePlayer1_2 = millis();
     scorePlayer1 += (isLedOn) ? 1 : -1;
@@ -128,12 +148,12 @@ void loop() {
   lastBtnValPlayer2_1 = btnValPlayer2_1;
   lastBtnValPlayer2_2 = btnValPlayer2_2;
 
-  if (millis() - LastOnTime >= OnPrd) {
+   if (millis() - LastOnTime >= OnPrd) {
     toggleLed();
     OnPrd = chooseNewPrd();
-  }
-    
-  } else {
+   } 
+  } 
+  else {
     LedOff();  // Turn off all LEDs while waiting for the game to start
   }
 
@@ -143,6 +163,8 @@ void loop() {
 
   // Serial.print("Player 2 Score: ");
   // Serial.println(scorePlayer2);
+  }
+  
 }
 
 int chooseNewPrd() {
