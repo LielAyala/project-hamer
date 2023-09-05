@@ -1,3 +1,4 @@
+<!-- 
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,7 +7,6 @@
 </head>  
 
 <body>
-  
   <img src="Logo_PNG.png" class="logo">
   <div class="clock" style="font-family: 'Handjet', sans-serif;">00:00:00</div>
   <div class="table-container">
@@ -29,24 +29,35 @@
     <source src="winner_player.mp3" type="audio/mpeg">
   </audio>
 
-  <audio id="winnerpoint" controls autoplay style="display: none;">
+
+  <audio id="winnerAudio" controls style="display: none;">
+    <source src="winner_player.mp3" type="audio/mpeg">
+  </audio>
+
+  <audio id="pointUpAudio" controls style="display: none;">
     <source src="WIN+1.mp3" type="audio/mpeg">
   </audio>
 
-  <audio id="lesspoint" controls autoplay style="display: none;">
+  <audio id="pointDownAudio" controls style="display: none;">
     <source src="BUZZ.mp3" type="audio/mpeg">
+  </audio>
+
+  <audio id="lastTenAudio" controls style="display: none;">
+    <source src="TIMER_10Sec.mp3" type="audio/mpeg">
   </audio>
 
 
   <script>
     var countPlayerOne = 0;
     var countPlayerTwo = 0;
+    
     var urlParams = new URLSearchParams(window.location.search);
     var playerOneName = urlParams.get("playerOne");
     var playerTwoName = urlParams.get("playerTwo");
+    
     document.getElementById("countPlayerOne").textContent = playerOneName + ": " + countPlayerOne;
     document.getElementById("countPlayerTwo").textContent = playerTwoName + ": " + countPlayerTwo;
-   function startCountdown() {
+    function startCountdown() {
       var count = 60;
       var clockElements = document.querySelectorAll('.clock');
       var interval = setInterval(function() {
@@ -65,51 +76,60 @@
       }, 1000);
     }
     document.addEventListener('DOMContentLoaded', startCountdown);
-    var gameOver = false; // האם המשחק נגמר או לא
+
+
     document.addEventListener("keydown", function(event) {
- if (!gameOver) { // רק אם המשחק עדיין לא נגמר
-      var key = event.key.toUpperCase(); // Get the pressed key in uppercase
-  
-     if (key === 'A') {
-    countPlayerOne++;
-    document.getElementById('countPlayerOne').textContent = playerOneName +':'+ countPlayerOne;
-    var winnerpointAudio = document.getElementById('winnerpoint');
-    winnerpointAudio.play();
-  } else if (key === 'B') {
-    countPlayerOne--;
-    document.getElementById('countPlayerOne').textContent = playerOneName +':'+ countPlayerOne;
-    var lesspoint = document.getElementById('lesspoint');
-    lesspoint.play();
-    } else if (key === 'C') {
-    countPlayerTwo++;
-    document.getElementById('countPlayerTwo').textContent = playerTwoName + ':'+ countPlayerTwo;
-    var winnerpointAudio = document.getElementById('winnerpoint');
-    winnerpointAudio.play();
-  } else if (key === 'D') {
-    countPlayerTwo--;
-    document.getElementById('countPlayerTwo').textContent = playerTwoName+ ':'+ countPlayerTwo;
-    var lesspoint = document.getElementById('lesspoint');
-    lesspoint.play();
-  }
- } 
-});
+      var key = event.key.toUpperCase();
+
+      if (key == 'A') {
+        countPlayerOne++;
+        document.getElementById('countPlayerOne').textContent = playerOneName +':'+ countPlayerOne;
+        if (countPlayerOne == 10) {
+          document.getElementById("pointUpAudio").play();
+        }
+      } else if (key == 'B') {
+        countPlayerOne--;
+        document.getElementById('countPlayerOne').textContent = playerOneName +':'+ countPlayerOne;
+        if (countPlayerOne === 9) {
+          document.getElementById("pointDownAudio").play();
+        }
+      } else if (key == 'C') {
+        countPlayerTwo++;
+        document.getElementById('countPlayerTwo').textContent = playerTwoName + ':'+ countPlayerTwo;
+        if (countPlayerTwo == 10) {
+          document.getElementById("pointUpAudio").play();
+        }
+      } else if (key == 'D') {
+        countPlayerTwo--;
+        document.getElementById('countPlayerTwo').textContent = playerTwoName+ ':'+ countPlayerTwo;
+        if (countPlayerTwo == 9) {
+          document.getElementById("pointDownAudio").play();
+        }
+      }
+    });
+
 
 
 function showWinnerMessage() {
   var messageElement = document.getElementById('message');
   var audioElement = document.querySelector('audio');
-  gameOver = true; // המשחק נגמר
+
   if (countPlayerOne > countPlayerTwo) {
-    messageElement.textContent = playerOneName+ "  wins!";
+    messageElement.textContent = "Player One wins!";
   } else if (countPlayerTwo > countPlayerOne) {
-    messageElement.textContent = playerTwoName+"  wins!";
+    messageElement.textContent = "Player Two wins!";
   } else {
     messageElement.textContent = "It's a tie!";
   }
+  
   messageElement.style.display = "block"; // תציג את ה-DIV
   audioElement.play(); // הפעלת האודיו
 }
 
+ 
+  
   </script>
 </body>
 </html>
+   
+   -->

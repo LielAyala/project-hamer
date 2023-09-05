@@ -2,18 +2,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Black Ops One:wght@300;400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@300;400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Press Start 2P:wght@300;400;500;700&display=swap');
-
-header {
-  background: #336633;
-    color:#cfd8a0;
-    padding: 20px;
-    text-align: center;
-    /*border-bottom: 3px solid #cfd8a0;
-    box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.5);*/
-}
-
-header h1 {
-  font-size:80px;
+body {
+  background-color: #336633;
+  font-family: 'Press Start 2P', sans-serif;
+  }
+h1 {
+    font-size:70px;
     text-align: center;
     display: block;
     color: #cfd8a0;
@@ -21,32 +15,30 @@ header h1 {
     font-family: 'Press Start 2P', sans-serif;
 }
 
-body {
-  background-color: #336633;
-
-  }
-  
-
-  .logo {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    width:210px;
-    height: 210px;
-  }
- 
-  .clock {
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 20px;
-  }
+.logo {
+  background: #336633;
+  color:#cfd8a0;
+  padding: 20px;
+  text-align: center;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  width:210px;
+  height: 210px;
+} 
+.clock { 
+  font-size: 24px;
+  /* font-weight: bold; */
+  text-align: center;
+  margin-top: 20px;
+  font-family: 'Press Start 2P', sans-serif;
+}
   
   .table-container {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    margin-top: 20px;
+    margin-top: 25px;
   }
   .center,
   .center1 {
@@ -74,23 +66,7 @@ body {
     box-shadow: 4px 4px 4px 10px rgba(0, 0, 0, 2);
   }
 
-.button {
-    display: block;
-    margin: 20px auto;
-    width: 500px;
-    padding: 10px 20px;
-    font-size: 40px;
-    font-weight: bold;
-    text-align: center;
-    text-shadow: 0px 0px 10px #011001;
-    color: #cfd8a0;
-    background-color: #4CAF50;
-    border-radius: 10px;
-    cursor: pointer;
-    box-shadow: 1px 1px 1px 8px rgba(0, 0, 0, 3.5);
-    transition: background-color 0.3s ease;
-  }
-  
+
   .button:hover {
     background-color: #3e8e41;
   }
@@ -113,11 +89,6 @@ body {
     text-decoration: none;
   }
   
-
-
-
-
-
 #message{
   position: fixed;
   color: gold;
@@ -132,10 +103,25 @@ body {
   background-color: rgba(255, 255, 255, 0.8); /* Transparent white background */
   z-index: 999; /* Ensure it's on top of everything */
   font-size: 60px;
-  font-family: 'Handjet', sans-serif;
 }
 
+.player-container {
+  text-align: center;
+  color: #cfd8a0;
+  display: inline-block;
+  width: 45%;
+  margin: 15px;
+}
 
+.img-main {
+  text-align: center;
+  font-family: 'Press Start 2P', sans-serif;
+  margin-bottom: 50px;
+  margin:0 auto;
+  width: 50%;
+  position: static;
+  /* padding: 10px; */
+}
 
 
 
